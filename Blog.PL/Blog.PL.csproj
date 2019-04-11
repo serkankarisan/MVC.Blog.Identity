@@ -906,16 +906,6 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Blog.BLL\Blog.BLL.csproj">
-      <Project>{144933d8-2826-48ac-94a1-3570b8cb066b}</Project>
-      <Name>Blog.BLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Blog.DAL\Blog.DAL.csproj">
-      <Project>{83d4e212-1727-4d53-a6e1-ff0a59000e29}</Project>
-      <Name>Blog.DAL</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
