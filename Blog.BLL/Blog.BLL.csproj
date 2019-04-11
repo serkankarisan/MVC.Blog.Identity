@@ -90,10 +90,6 @@
       <Project>{83d4e212-1727-4d53-a6e1-ff0a59000e29}</Project>
       <Name>Blog.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Blog.Entity\Blog.Entity.csproj">
-      <Project>{0328a82f-f3cd-4b6e-9397-b5f535308fff}</Project>
-      <Name>Blog.Entity</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
