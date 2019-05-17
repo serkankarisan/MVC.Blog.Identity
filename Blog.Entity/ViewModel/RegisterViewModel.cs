@@ -23,11 +23,6 @@ namespace Blog.Entity.ViewModel
         public string Email { get; set; }
 
         [Required]
-        [StringLength(50)]
-        [Display(Name = "Kullanıcı Adı")]
-        public string Username { get; set; }
-
-        [Required]
         [StringLength(100)]
         [DataType(DataType.Password)]
         [Display(Name = "Şifre")]

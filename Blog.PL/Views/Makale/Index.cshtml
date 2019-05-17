@@ -14,7 +14,7 @@ else
             <!-- blogpost start -->
             <article class="clearfix blogpost">
                 <div class="overlay-container">
-                    <img src="/images/@item.Picture" alt="">
+                    <img src="/images/@item.Picture" style="height:250px;" alt="">
                     <div class="overlay">
                         <div class="overlay-links">
                             <a href="/Makale/MakaleDetay/@item.Id"><i class="fa fa-link"></i></a>
@@ -31,7 +31,7 @@ else
                             @*@item.CreatedDate. @item.CreatedDate.Year*@
                         </span>
                     </div>
-                    <div class="blogpost-content">
+                    <div class="blogpost-content" style="height:200px;">
                         <header>
                             <h2 class="title"><a href="blog-post.html">@item.Title</a></h2>
                             <div class="submitted"><i class="fa fa-user pr-5"></i> by <a href="#">@(item.User.Name + " " + item.User.Surname)</a></div>

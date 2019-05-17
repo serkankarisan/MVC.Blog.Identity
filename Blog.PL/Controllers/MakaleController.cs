@@ -46,8 +46,8 @@ namespace Blog.PL.Controllers
                 yeni.Content = model.Content;
                 yeni.Picture = filename;
                 yeni.CategoryId = model.CategoryId;
-                //yeni.UserId = HttpContext.User.Identity.GetUserId();
-                yeni.UserId = "55b5fccd-fbd5-4f3a-9fc0-b4b0714cc96d";
+                yeni.UserId = HttpContext.User.Identity.GetUserId();
+                //yeni.UserId = "55b5fccd-fbd5-4f3a-9fc0-b4b0714cc96d";
                 if (repoM.Add(yeni))
                     return RedirectToAction("Index");
                 return View(model);
