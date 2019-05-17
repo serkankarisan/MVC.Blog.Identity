@@ -120,9 +120,10 @@
                                 </div>
                                 <div class="btn-group dropdown">
                                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Giriş Yap</button>
-                                    <ul class="dropdown-menu dropdown-menu-right dropdown-animation">
+                                    <ul class="dropdown-menu dropdown-menu-right dropdown-animation" style="width:325px;">
                                         <li>
-                                            <form class="login-form">
+                                            <form class="login-form" method="post" action="/Account/Login">
+                                                @Html.AntiForgeryToken()
                                                 <div class="form-group has-feedback">
                                                     <label class="control-label">Kullanıcı Adı</label>
                                                     <input type="text" class="form-control" placeholder="">
@@ -135,7 +136,7 @@
                                                 </div>
                                                 <button type="submit" class="btn btn-group btn-dark btn-sm">Giriş Yap</button>
                                                 <span>veya</span>
-                                                <button type="submit" class="btn btn-group btn-default btn-sm">Kayıt Ol</button>
+                                                <a class="btn btn-group btn-default btn-sm" href="/Account/Register">Kayıt Ol</a>
                                                 <ul>
                                                     <li><a href="#">Şifreni mi unuttun?</a></li>
                                                 </ul>
@@ -226,15 +227,6 @@
                                                     </ul>
                                                 </li>
                                                 <li class="dropdown">
-                                                    <a href="/Account/Index" class="dropdown-toggle" data-toggle="dropdown">Üyeler</a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="/Account/Register">Yeni Üye Kayıt</a></li>
-                                                        <li><a href="/Account/Login">Üye Giriş</a></li>
-                                                        <li><a href="blog-no-sidebar.html">Yazar Listesi</a></li>
-
-                                                    </ul>
-                                                </li>
-                                                <li class="dropdown">
                                                     <a href="/Account/Index" class="dropdown-toggle" data-toggle="dropdown">İstatistikler</a>
                                                     <ul class="dropdown-menu">
                                                         <li><a href="blog-right-sidebar.html">Popüler Etiketler</a></li>
@@ -315,16 +307,13 @@
                     <!-- ================ -->
                     <div class="footer">
                         <div class="container">
-                            <div class="row">
-                                <div class="col-md-3">
-                                     &nbsp;
-                                </div>
-                                <div class="col-md-3">
+                            <div class="row text-center">
+                                <div class="col-md-3 col-md-push-3">
                                     <div class="footer-content">
-                                        <div class="logo-footer"><img id="logo-footer" src="/images/logo-footer.png" style="padding-left:25px" alt=""></div>
+                                        <div class="logo-footer"><img style="display:inline-block;" id="logo-footer" src="/images/logo.png" alt=""></div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-md-push-3"">
                                     <div class="footer-content">
                                         <div class="row logo-footer">
                                             <div class="col-sm-12">
@@ -338,9 +327,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    &nbsp;
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -351,7 +337,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12 text-center">
-                                    <p>Copyright © @DateTime.Now.Year.ToString() Blog Projesi </p>
+                                    <p>&copy; @DateTime.Now.Year - Blog Projesi</p>
                                 </div>
                             </div>
                         </div>

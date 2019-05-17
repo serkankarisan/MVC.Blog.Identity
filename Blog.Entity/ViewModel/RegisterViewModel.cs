@@ -11,10 +11,12 @@ namespace Blog.Entity.ViewModel
     {
         [Required]
         [StringLength(50)]
+        [Display(Name = "Ad")]
         public string Name { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Soyad")]
         public string Surname { get; set; }
         [Required]
         [EmailAddress()]
@@ -22,16 +24,19 @@ namespace Blog.Entity.ViewModel
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Kullanıcı Adı")]
         public string Username { get; set; }
 
         [Required]
         [StringLength(100)]
         [DataType(DataType.Password)]
+        [Display(Name = "Şifre")]
         public string Password { get; set; }
 
         [Required]
         [StringLength(100)]
         [DataType(DataType.Password)]
+        [Display(Name = "Şifre Tekrar")]
         [Compare("Password", ErrorMessage = "Şifreler aynı değil!")]
         public string ConfirmPassword { get; set; }
     }

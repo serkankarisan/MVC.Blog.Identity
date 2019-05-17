@@ -36,7 +36,7 @@ namespace Blog.PL.Controllers
             user.Name = model.Name;
             user.Surname = model.Surname;
             user.Email = model.Email;
-            user.UserName = model.Username;
+            user.UserName = model.Email;
 
             var result = usermanager.Create(user, model.Password);
 

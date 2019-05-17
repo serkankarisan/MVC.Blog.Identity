@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace Blog.PL.Controllers
 {
+    [Authorize]
     public class MakaleController : BaseController
     {
         Repository<Article> repoM = new Repository<Article>(new BlogContext());
