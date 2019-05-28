@@ -887,6 +887,9 @@
     <Content Include="Views\Makale\Ekle.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Makale\Kategoriler.cshtml" />
+    <Content Include="Views\Makale\KategoriEkle.cshtml" />
+    <Content Include="Views\Makale\KategoriDuzenle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -74,14 +74,22 @@ namespace Blog.PL.Controllers
             }
             else
             {
-                var authManager = HttpContext.GetOwinContext().Authentication;
-                var identity = usermanager.CreateIdentity(kullanici, "ApplicationCookie");
-                var authProperty = new AuthenticationProperties
+                if (!usermanager.CheckPassword(kullanici, model.Password))
                 {
-                    IsPersistent = model.RememberMe
-                };
-                authManager.SignIn(authProperty, identity);
-                return Redirect(string.IsNullOrEmpty(model.returnUrl) ? "/" : model.returnUrl);
+                    ModelState.AddModelError("", "Girilen şifre yanlış!");
+                    return View(model);
+                }
+                else
+                {
+                    var authManager = HttpContext.GetOwinContext().Authentication;
+                    var identity = usermanager.CreateIdentity(kullanici, "ApplicationCookie");
+                    var authProperty = new AuthenticationProperties
+                    {
+                        IsPersistent = model.RememberMe
+                    };
+                    authManager.SignIn(authProperty, identity);
+                    return Redirect(string.IsNullOrEmpty(model.returnUrl) ? "/" : model.returnUrl);
+                }
             }
         }
         [Authorize]

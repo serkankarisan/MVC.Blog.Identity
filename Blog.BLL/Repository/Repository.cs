@@ -48,12 +48,36 @@ namespace Blog.BLL.Repository
 
         public bool Delete(T entity)
         {
-            throw new NotImplementedException();
+            bool Sonuc = false;
+            try
+            {
+                Sonuc = Convert.ToBoolean(_blogContext.SaveChanges());
+                //Sonuc = true;
+            }
+            catch (Exception ex)
+            {
+                string hata = ex.Message;
+                Sonuc = false;
+                //throw new Exception("Kayıt yapılamadı!");
+            }
+            return Sonuc;
         }
 
         public bool Delete(int Id)
         {
-            throw new NotImplementedException();
+            bool Sonuc = false;
+            try
+            {
+                Sonuc = Convert.ToBoolean(_blogContext.SaveChanges());
+                //Sonuc = true;
+            }
+            catch (Exception ex)
+            {
+                string hata = ex.Message;
+                Sonuc = false;
+                //throw new Exception("Kayıt yapılamadı!");
+            }
+            return Sonuc;
         }
 
         public IList<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderby = null, params Expression<Func<T, object>>[] includes)
@@ -72,7 +96,21 @@ namespace Blog.BLL.Repository
 
         public bool Update(T entity)
         {
-            throw new NotImplementedException();
+            bool Sonuc = false;
+            try
+            {
+
+                _blogContext.Entry(entity).State = EntityState.Modified;
+                Sonuc = Convert.ToBoolean(_blogContext.SaveChanges());
+                //Sonuc = true;
+            }
+            catch (Exception ex)
+            {
+                string hata = ex.Message;
+                Sonuc = false;
+                //throw new Exception("Kayıt yapılamadı!");
+            }
+            return Sonuc;
         }
 
         public T Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderby = null, params Expression<Func<T, object>>[] includes)

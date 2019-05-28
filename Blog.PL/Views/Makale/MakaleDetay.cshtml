@@ -2,11 +2,11 @@
 @{
     ViewBag.Title = "MakaleDetay";
 }
-<div class="container">
+<div class="container-fluid">
     <div class="row">
             <!-- main start -->
             <!-- ================ -->
-        <div class="main col-md-8">
+        <div class="main col-md-offset-1 col-md-9">
             <!-- page-title start -->
             <!-- ================ -->
             <h1 class="page-title">@Model.Makale.Title</h1>
@@ -81,7 +81,7 @@
                 }
             </div>
             <!-- comments form start -->
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("MakaleDetay", "Makale", FormMethod.Post))
             {
                 <div class="comments-form">
                     <h2 class="title">Yorum Ekle</h2>

@@ -137,7 +137,7 @@
                                                 <button type="submit" class="btn btn-group btn-dark btn-sm">Giriş Yap</button>
                                                 <span>veya</span>
                                                 <a class="btn btn-group btn-default btn-sm" href="/Account/Register">Kayıt Ol</a>
-                                                <ul>
+                                                <ul style="list-style-type:none;">
                                                     <li><a href="#">Şifreni mi unuttun?</a></li>
                                                 </ul>
                                                 <div class="divider"></div>
@@ -162,7 +162,7 @@
             fixed: fixed navigation mode (sticky menu) e.g. <header class="header fixed clearfix">
              dark: dark header version e.g. <header class="header dark clearfix">
         ================ -->
-        <header class="header fixed clearfix">
+        <header class="header dark fixed clearfix">
             <div class="container">
                 <div class="row">
                     <div class="col-md-3">
@@ -199,12 +199,19 @@
                                 <!-- ================ -->
                                 <nav class="navbar navbar-default" role="navigation">
                                     <div class="container-fluid">
-
+                                        <div class="navbar-header">
+                                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                                                <span class="sr-only">Toggle navigation</span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                            </button>
+                                        </div>
                                         <!-- Collect the nav links, forms, and other content for toggling -->
                                         <div class="collapse navbar-collapse" id="navbar-collapse-1">
                                             <ul class="nav navbar-nav navbar-right">
                                                 <li>
-                                                    <a href="/Home/Index" class="dropdown-toggle" data-toggle="dropdown">Anasayfa</a>
+                                                    <a id="btn-anasayfa" href="/Home/Index" class="dropdown-toggle" data-toggle="dropdown">Anasayfa</a>
                                                 </li>
                                                 <!-- mega-menu start -->
                                                 <li class="dropdown">
@@ -212,22 +219,21 @@
                                                     <ul class="dropdown-menu">
                                                         <li><a href="/Makale/Ekle">Yeni Makale Ekle</a></li>
                                                         <li><a href="/Makale/Index">Son Eklenen Makaleler</a></li>
-                                                        <li><a href="blog-no-sidebar.html">Makale Yorumları</a></li>
 
                                                     </ul>
                                                 </li>
                                                 <!-- mega-menu end -->
                                                 <li class="dropdown">
-                                                    <a href="/Kategori/Index" class="dropdown-toggle" data-toggle="dropdown">Kategoriler</a>
+                                                    <a href="/Makale/Kategoriler" class="dropdown-toggle" data-toggle="dropdown">Kategoriler</a>
                                                     <ul class="dropdown-menu">
-                                                        <li><a href="blog-right-sidebar.html">Kategori Listesi</a></li>
-                                                        <li><a href="blog-left-sidebar.html">Kategori Ekle</a></li>
+                                                        <li><a href="/Makale/Kategoriler">Kategori Listesi</a></li>
+                                                        <li><a href="/Makale/KategoriEkle">Kategori Ekle</a></li>
                                                         @*<li><a href="blog-no-sidebar.html">Yazar Listesi</a></li>*@
 
                                                     </ul>
                                                 </li>
                                                 <li class="dropdown">
-                                                    <a href="/Account/Index" class="dropdown-toggle" data-toggle="dropdown">İstatistikler</a>
+                                                    <a href="" class="dropdown-toggle" data-toggle="dropdown">İstatistikler</a>
                                                     <ul class="dropdown-menu">
                                                         <li><a href="blog-right-sidebar.html">Popüler Etiketler</a></li>
                                                         <li><a href="blog-left-sidebar.html">Yorum Sayıları</a></li>
@@ -256,18 +262,18 @@
         <!-- page-intro start-->
         <!-- ================ -->
         <div class="page-intro">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
-                        <ol class="breadcrumb">
-                            <li><i class="fa fa-home pr-10"></i><a href="index.html">Anasayfa</a></li>
+                    <div class="col-md-12" style="padding-bottom:20px;">
+                        <ul style="list-style-type:none;">
+                            <li><i class="fa fa-home pr-10"></i><a href="/Home/Index">Anasayfa</a></li>
                             <li class="active">
                                 Makaleler
                                 <div class="col-md-9">
                                     @RenderBody()
                                 </div>
                                 <!-- sidebar start -->
-                                <aside class="col-md-3">
+                                <aside class="col-md-3 bg-info">
                                     <div class="sidebar">
                                         <div class="block clearfix">
                                             <h3 class="title">Kategoriler</h3>
@@ -313,7 +319,7 @@
                                         <div class="logo-footer"><img style="display:inline-block;" id="logo-footer" src="/images/logo.png" alt=""></div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-md-push-3"">
+                                <div class="col-md-3 col-md-push-3" ">
                                     <div class="footer-content">
                                         <div class="row logo-footer">
                                             <div class="col-sm-12">
@@ -346,44 +352,50 @@
 
                 </footer>
                 <!-- footer end -->
-                </div>
             </div>
-            <!-- page-wrapper end -->
-            <!-- JavaScript files placed at the end of the document so the pages load faster
-            ================================================== -->
-            <!-- Jquery and Bootstap core js files -->
-            <script type="text/javascript" src="/plugins/jquery.min.js"></script>
-            <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+        </div>
+        <!-- page-wrapper end -->
+        <!-- JavaScript files placed at the end of the document so the pages load faster
+        ================================================== -->
+        <!-- Jquery and Bootstap core js files -->
+        <script type="text/javascript">
+            var BtnAnasayfa = document.getElementById("btn-anasayfa");
+            BtnAnasayfa.onclick = function AnasayfayaGit() {
+                window.location.href = "/Home/Index";
+            }
+        </script>
+        <script type="text/javascript" src="/plugins/jquery.min.js"></script>
+        <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
 
-            <!-- Modernizr javascript -->
-            <script type="text/javascript" src="/plugins/modernizr.js"></script>
+        <!-- Modernizr javascript -->
+        <script type="text/javascript" src="/plugins/modernizr.js"></script>
 
-            <!-- Isotope javascript -->
-            <script type="text/javascript" src="/plugins/isotope/isotope.pkgd.min.js"></script>
+        <!-- Isotope javascript -->
+        <script type="text/javascript" src="/plugins/isotope/isotope.pkgd.min.js"></script>
 
-            <!-- Owl carousel javascript -->
-            <script type="text/javascript" src="/plugins/owl-carousel/owl.carousel.js"></script>
+        <!-- Owl carousel javascript -->
+        <script type="text/javascript" src="/plugins/owl-carousel/owl.carousel.js"></script>
 
-            <!-- Magnific Popup javascript -->
-            <script type="text/javascript" src="/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+        <!-- Magnific Popup javascript -->
+        <script type="text/javascript" src="/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
 
-            <!-- Appear javascript -->
-            <script type="text/javascript" src="/plugins/jquery.appear.js"></script>
+        <!-- Appear javascript -->
+        <script type="text/javascript" src="/plugins/jquery.appear.js"></script>
 
-            <!-- Count To javascript -->
-            <script type="text/javascript" src="/plugins/jquery.countTo.js"></script>
+        <!-- Count To javascript -->
+        <script type="text/javascript" src="/plugins/jquery.countTo.js"></script>
 
-            <!-- Parallax javascript -->
-            <script src="/plugins/jquery.parallax-1.1.3.js"></script>
+        <!-- Parallax javascript -->
+        <script src="/plugins/jquery.parallax-1.1.3.js"></script>
 
-            <!-- Contact form -->
-            <script src="/plugins/jquery.validate.js"></script>
+        <!-- Contact form -->
+        <script src="/plugins/jquery.validate.js"></script>
 
-            <!-- Initialization of Plugins -->
-            <script type="text/javascript" src="/js/template.js"></script>
+        <!-- Initialization of Plugins -->
+        <script type="text/javascript" src="/js/template.js"></script>
 
-            <!-- Custom Scripts -->
-            <script type="text/javascript" src="/js/custom.js"></script>
+        <!-- Custom Scripts -->
+        <script type="text/javascript" src="/js/custom.js"></script>
 
 </body>
 </html>

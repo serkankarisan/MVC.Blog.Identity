@@ -17,6 +17,7 @@ namespace Blog.PL.Controllers
     {
         Repository<Article> repoM = new Repository<Article>(new BlogContext());
         Repository<Comment> repoC = new Repository<Comment>(new BlogContext());
+        Repository<Category> repoCat = new Repository<Category>(new BlogContext());
         public ActionResult Index()
         {
             return View(repoM.GetAll(null, m => m.OrderByDescending(x => x.CreatedDate)).Take(4));
@@ -32,14 +33,9 @@ namespace Blog.PL.Controllers
         {
             if(model.PictureUpload != null)
             {
-                //string name = Path.GetFileNameWithoutExtension(model.PictureUpload.FileName);
-                //string ext = Path.GetExtension(model.PictureUpload.FileName);
-                ////Resim upload edilecek.
-                //name = name.Replace(" ", "");
                 string filename = model.PictureUpload.FileName;
                 string imagePath = Server.MapPath("/images/" + filename);
                 model.PictureUpload.SaveAs(imagePath);
-                //Makale eklenecek.
                 Article yeni = new Article();
                 yeni.Title = model.Title;
                 yeni.Summary = model.Summary;
@@ -47,7 +43,6 @@ namespace Blog.PL.Controllers
                 yeni.Picture = filename;
                 yeni.CategoryId = model.CategoryId;
                 yeni.UserId = HttpContext.User.Identity.GetUserId();
-                //yeni.UserId = "55b5fccd-fbd5-4f3a-9fc0-b4b0714cc96d";
                 if (repoM.Add(yeni))
                     return RedirectToAction("Index");
                 return View(model);
@@ -68,14 +63,114 @@ namespace Blog.PL.Controllers
             Comment yeniYorum = new Comment();
             yeniYorum.ArticleId = model.Makale.Id;
             yeniYorum.Content = model.Yorum.Content;
-            //yeniYorum.UserId = HttpContext.User.Identity.GetUserId();
-            yeniYorum.UserId = "55b5fccd-fbd5-4f3a-9fc0-b4b0714cc96d";
+            yeniYorum.UserId = HttpContext.User.Identity.GetUserId();
             if (repoC.Add(yeniYorum))
             {
-                return RedirectToAction("Index");
+                return Redirect("/Makale/MakaleDetay/"+model.Makale.Id);
             }
 
             return View();
+        }
+        public ActionResult Kategoriler()
+        {
+            return View(repoCat.GetAll(c=>c.IsDeleted==false));
+        }
+        public ActionResult KategoriEkle()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult KategoriEkle(KategoriViewModel model)
+        {
+            Category yeniKategori = repoCat.GetAll(c => c.Name == model.Name).FirstOrDefault();
+            if (yeniKategori != null)
+            {
+                if (yeniKategori.IsDeleted == false)
+                {
+                    ModelState.AddModelError("", "Bu kategori sistemde kayıtlı!");
+                    return View(model);
+                }
+                else
+                {
+                    yeniKategori.CreatedDate = DateTime.Now;
+                    if (string.IsNullOrEmpty(model.Description))
+                    {
+                        yeniKategori.Description = "Açıklama girilmemiş.";
+                    }
+                    else
+                    {
+                        yeniKategori.Description = model.Description;
+                    }
+                    yeniKategori.Name = model.Name;
+                    yeniKategori.IsDeleted = false;
+                    if (repoCat.Update(yeniKategori))
+                    {
+                        return Redirect("/Makale/Kategoriler/");
+                    }
+                    return View(model);
+                }
+            }
+            yeniKategori.CreatedDate = DateTime.Now;
+            if (string.IsNullOrEmpty(model.Description))
+            {
+                yeniKategori.Description = "Açıklama girilmemiş.";
+            }
+            else
+            {
+                yeniKategori.Description = model.Description;
+            }
+            yeniKategori.Name = model.Name;
+            yeniKategori.IsDeleted = false;
+            if (repoCat.Add(yeniKategori))
+            {
+                return Redirect("/Makale/Kategoriler/");
+            }
+
+            return View(model);
+        }
+        public ActionResult KategoriDuzenle(int id)
+        {
+            KategoriViewModel model = new KategoriViewModel();
+            Category kategori=repoCat.GetById(id);
+            model.Description = kategori.Description;
+            model.Name = kategori.Name;
+            model.Id = kategori.Id;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult KategoriDuzenle(KategoriViewModel model)
+        {
+            Category yeniKategori = repoCat.GetAll(c => c.Id == model.Id).FirstOrDefault();
+            if (yeniKategori == null)
+            {
+                ModelState.AddModelError("", "Bu kategori sistemde bulunamadı!");
+                return Redirect("/Makale/Kategoriler/");
+            }
+                yeniKategori.CreatedDate = DateTime.Now;
+                if (string.IsNullOrEmpty(model.Description))
+            {
+                yeniKategori.Description = "Açıklama girilmemiş.";
+            }
+            else
+            {
+                yeniKategori.Description = model.Description;
+            }
+            yeniKategori.Name = model.Name;
+            yeniKategori.IsDeleted = false;
+            if (repoCat.Update(yeniKategori))
+            {
+                return Redirect("/Makale/Kategoriler/");
+            }
+
+            return View(model);
+        }
+        public ActionResult KategoriSil(int id)
+        {
+            Category kategori = repoCat.GetById(id);
+            kategori.IsDeleted = true;
+            repoCat.Delete(kategori);
+
+            return Redirect("/Makale/Kategoriler/");
         }
     }
 }

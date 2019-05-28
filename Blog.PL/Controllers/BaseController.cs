@@ -16,7 +16,7 @@ namespace Blog.PL.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             Repository<Category> repoC = new Repository<Category>(ent);
-            ViewBag.Kategoriler = repoC.GetAll();
+            ViewBag.Kategoriler = repoC.GetAll(c => c.IsDeleted == false);
 
             Repository<Tag> repoT = new Repository<Tag>(ent);
             ViewBag.Etiketler = repoT.GetAll(null, t => t.OrderByDescending(x => x.Articles.Count)).Take(5);

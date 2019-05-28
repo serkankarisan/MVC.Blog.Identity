@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Blog.Entity.Entity.Category>
+
+@{
+    ViewBag.Title = "Kategoriler";
+    Layout = "~/Views/Shared/_LayoutBlog.cshtml";
+}
+
+<h2>Kategoriler</h2>
+
+<p>
+    @Html.ActionLink("Kategori Ekle", "KategoriEkle","Makale")
+</p>
+<table class="table">
+    <tr>
+        <th>
+           <label>Kategori Adı</label>
+        </th>
+        <th>
+            <label>Açıklama</label>
+        </th>
+        <th>
+            <label>Oluşturulma Tarihi</label>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDate)
+        </td>
+        <td>
+            <a href="/Makale/KategoriDuzenle/@item.Id">Düzenle |</a>
+            <a href="/Makale/KategoriSil/@item.Id"> Sil</a>
+        </td>
+    </tr>
+}
+
+</table>
