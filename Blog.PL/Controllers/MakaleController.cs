@@ -82,9 +82,10 @@ namespace Blog.PL.Controllers
         [HttpPost]
         public ActionResult KategoriEkle(KategoriViewModel model)
         {
-            Category yeniKategori = repoCat.GetAll(c => c.Name == model.Name).FirstOrDefault();
-            if (yeniKategori != null)
+            Category yeniKategori = new Category();
+            if (repoCat.GetAll(c => c.Name == model.Name).FirstOrDefault()!= null)
             {
+                yeniKategori = repoCat.GetAll(c => c.Name == model.Name).FirstOrDefault();
                 if (yeniKategori.IsDeleted == false)
                 {
                     ModelState.AddModelError("", "Bu kategori sistemde kayıtlı!");

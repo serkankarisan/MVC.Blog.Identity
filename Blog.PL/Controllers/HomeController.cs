@@ -1,10 +1,6 @@
 ﻿using Blog.BLL.Repository;
 using Blog.DAL.Context;
 using Blog.Entity.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Blog.PL.Controllers
@@ -15,8 +11,8 @@ namespace Blog.PL.Controllers
         Repository<Tag> repoT = new Repository<Tag>(new BlogContext());
         Repository<Category> repoC = new Repository<Category>(new BlogContext());
         public ActionResult Index()
-        {
-            return View();
+        {           
+                return View();
         }
         public ActionResult SonEklenenMakaleler()
         {
