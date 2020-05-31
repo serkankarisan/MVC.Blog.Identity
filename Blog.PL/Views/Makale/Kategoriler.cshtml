@@ -8,12 +8,12 @@
 <h2>Kategoriler</h2>
 
 <p>
-    @Html.ActionLink("Kategori Ekle", "KategoriEkle","Makale")
+    @Html.ActionLink("Kategori Ekle", "KategoriEkle", "Makale")
 </p>
 <table class="table">
     <tr>
         <th>
-           <label>Kategori Adı</label>
+            <label>Kategori Adı</label>
         </th>
         <th>
             <label>Açıklama</label>
@@ -24,22 +24,47 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedDate)
-        </td>
-        <td>
-            <a href="/Makale/KategoriDuzenle/@item.Id">Düzenle |</a>
-            <a href="/Makale/KategoriSil/@item.Id"> Sil</a>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                <a href="/Makale/KategoriDuzenle/@item.Id">Düzenle |</a>
+                <a class="btnCatDelete" href="#" data-CatId="@item.Id"> Sil</a>
+            </td>
+        </tr>
+    }
 
 </table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".btnCatDelete").click(function () {
+            var CatID = $(this).data("catid");
+            var r = confirm("Silmek istiyor musunuz!");
+            if (r == true) {               
+                $.ajax({
+                    url: '/Makale/KategoriSil/' + CatID,
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data === "Deleted") {
+                            alert("Kategori silinidi.");
+                        }
+                        else if (data === "NotDeleted") {
+                            alert("Bu kategoride makaleler var! Makale bulunan kategoriler silinemez!");
+                        }
+                        window.location = "/Makale/Kategoriler/";
+                    }
+                });
+            }
+        });
+    });
+</script>

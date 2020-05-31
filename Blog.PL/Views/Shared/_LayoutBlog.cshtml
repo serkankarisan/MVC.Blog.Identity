@@ -42,6 +42,9 @@
 
     <!-- Custom css -->
     <link href="/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -298,7 +301,7 @@
                                                 <ul class="nav nav-pills nav-stacked">
                                                     @foreach (Blog.Entity.Entity.Category item in ViewBag.Kategoriler)
                                                     {
-                                                        <li><a href="/Home/MakalelerByKategori/@item.Id">@item.Name</a></li>
+                                                        <li><a class="fa-border" style="border-color:cadetblue;" href="/Home/MakalelerByKategori/@item.Id">@item.Name</a></li>
                                                     }
                                                 </ul>
                                             </nav>
