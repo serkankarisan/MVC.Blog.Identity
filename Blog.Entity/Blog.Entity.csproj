@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Entity\Category.cs" />
     <Compile Include="Entity\Comment.cs" />
+    <Compile Include="Entity\CommentAnswer.cs" />
     <Compile Include="Entity\EntityBase.cs" />
     <Compile Include="Entity\Article.cs" />
     <Compile Include="Entity\Tag.cs" />

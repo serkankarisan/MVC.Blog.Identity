@@ -2,10 +2,13 @@
 @{
     ViewBag.Title = "MakaleDetay";
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <div class="container-fluid">
     <div class="row">
-            <!-- main start -->
-            <!-- ================ -->
+        <!-- main start -->
+        <!-- ================ -->
         <div class="main col-md-offset-1 col-md-9">
             <!-- page-title start -->
             <!-- ================ -->
@@ -72,7 +75,14 @@
                                 <div class="comment-meta">By <a href="#">@(yorum.User.Name + " " + yorum.User.Surname)</a> | Today, 12:31</div>
                                 <div class="comment-body clearfix">
                                     <p>@yorum.Content</p>
-                                    <a href="blog-post.html" class="btn btn-gray more pull-right"><i class="fa fa-reply"></i> Cevapla</a>
+                                    <button type="button" class="btn btn-gray more pull-right ComAnswIdSelect" data-toggle="modal" data-target="#CommentAnswerModal" data-comid="@yorum.Id">
+                                        Cevapla
+                                    </button>
+                                    @if (yorum.CommentAnswers.Count != 0)
+                                    {
+                                        <button type="button" class="btn btn-gray more pull-left btnAnswers" data-comid="@yorum.Id">
+                                            Yanıtları Gör<span class="badge badge-light">@yorum.CommentAnswers.Count.ToString()</span>
+                                        </button>}
                                 </div>
                             </div>
                         </div>
@@ -101,8 +111,73 @@
                     </div>
                 </div>
             }
-                <!-- comments form end -->
+            <!-- comments form end -->
+            <!-- Modal -->
+            <div class="modal fade" id="CommentAnswerModal" tabindex="-1" role="dialog" aria-labelledby="CommentAnswerModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="row">
+                                <h5 class="modal-title col-lg-9" id="CommentAnswerModalLabel">Cevabınızı Yazınız</h5>
+                                <button type="button" class="close col-lg-1 btnYorumCevapIptal" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class="form-control" type="text" id="txtComment" maxlength="200" rows="4"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btnYorumCevapIptal" data-dismiss="modal">İptal</button>
+                            <a href="#" class="btn btn-primary btnYorumCevap">Gönder</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- main end -->
+            <!--End Modal -->           
+        </div>
+        <!-- main end -->
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var url = window.location.pathname;
+        console.log(url);
+        var ComID = 0;
+        $(".btnAnswers").click(function () {
+            ComID = $(this).data("comid");
+            window.location ='/Makale/YorumCevaplari/' + ComID;
+        });
+        $(".ComAnswIdSelect").click(function () {
+            ComID = $(this).data("comid");
+        });
+        $(".btnYorumCevap").click(function () {
+            var Comm = $("#txtComment").val();
+            if (ComID !== 0) {
+                if (Comm !== "") {
+                    $.ajax({
+                        url: '/Makale/CommentAnswer/' + ComID,
+                        data: { comment: Comm },
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data === "True") {
+                                window.location = url;
+                            }
+                            else {
+                                alert("Cevap eklenemedi!")
+                            }
+                        }
+                    });
+                } else {
+                    alert("Cevap yazmalısınız!");
+                }
+            }
+        });
+        $(".btnYorumCevapIptal").click(function () {
+            ComID = 0;
+            $("#txtComment").val("");
+        });
+    });
+</script>

@@ -22,6 +22,8 @@ namespace Blog.Entity.Entity
 
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
+        public virtual List<CommentAnswer> CommentAnswers { get; set; }
+
 
     }
 }

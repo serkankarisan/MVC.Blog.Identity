@@ -17,6 +17,7 @@ namespace Blog.PL.Controllers
     {
         Repository<Article> repoM = new Repository<Article>(new BlogContext());
         Repository<Comment> repoC = new Repository<Comment>(new BlogContext());
+        Repository<CommentAnswer> repoComAns = new Repository<CommentAnswer>(new BlogContext());
         Repository<Category> repoCat = new Repository<Category>(new BlogContext());
         public ActionResult Index()
         {
@@ -27,6 +28,11 @@ namespace Blog.PL.Controllers
         public ActionResult Ekle()
         {
             return View();
+        }
+        public ActionResult YorumCevaplari(int id)
+        {
+            List<CommentAnswer> Answers = repoComAns.GetAll().Where(a => a.CommentId == id).ToList();
+            return View("YorumCevaplari", Answers);
         }
         [HttpPost, ValidateInput(false)]
         public ActionResult Ekle(MakaleAddViewModel model)
@@ -176,6 +182,21 @@ namespace Blog.PL.Controllers
             }
             repoCat.Delete(kategori);
             return Json("Deleted",JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult CommentAnswer(int id,string comment)
+        {
+            Comment yorum = repoC.GetById(id);
+            CommentAnswer newAnswer = new CommentAnswer();
+            newAnswer.CommentId = yorum.Id;
+            newAnswer.UserId= HttpContext.User.Identity.GetUserId();
+            newAnswer.Content = comment;
+            if (repoComAns.Add(newAnswer))
+            {
+                return Json("True", JsonRequestBehavior.AllowGet);
+            }
+            return Json("False", JsonRequestBehavior.AllowGet);
         }
     }
 }

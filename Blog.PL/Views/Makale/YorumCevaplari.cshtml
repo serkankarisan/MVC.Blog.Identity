@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Blog.Entity.Entity.CommentAnswer>
+
+@{
+    ViewBag.Title = "YorumCevaplari";
+    Layout = "~/Views/Shared/_LayoutBlog.cshtml";
+}
+
+<h2>Yorum Cevapları</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            <label>Kullanıcı</label>
+        </th>
+        <th>
+            <label>Yorum</label>
+        </th>
+        <th>
+            <label>Oluşturulma Tarihi</label>
+        </th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            <label>@Model.ToList().FirstOrDefault().Comment.User.UserName</label>
+        </td>
+        <td>
+            <label>@Model.ToList().FirstOrDefault().Comment.Content</label>
+        </td>
+        <td>
+            <label>@Model.ToList().FirstOrDefault().Comment.CreatedDate</label>
+        </td>
+    </tr>
+    <tr>
+       <td>
+           -
+       </td>
+    </tr>
+    <tr>
+        <th>
+            <label>Kullanıcı</label>
+        </th>
+        <th>
+            <label>Yanıt</label>
+        </th>
+        <th>
+            <label>Oluşturulma Tarihi</label>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+        </tr>
+    }
+
+</table>

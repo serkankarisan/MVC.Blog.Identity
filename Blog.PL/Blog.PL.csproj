@@ -890,6 +890,7 @@
     <Content Include="Views\Makale\Kategoriler.cshtml" />
     <Content Include="Views\Makale\KategoriEkle.cshtml" />
     <Content Include="Views\Makale\KategoriDuzenle.cshtml" />
+    <Content Include="Views\Makale\YorumCevaplari.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
