@@ -66,16 +66,29 @@ namespace Blog.PL.Controllers
         [HttpPost]
         public ActionResult MakaleDetay(MakaleDetayViewModel model)
         {
+            MakaleDetayViewModel mdvm = new MakaleDetayViewModel();
             Comment yeniYorum = new Comment();
             yeniYorum.ArticleId = model.Makale.Id;
-            yeniYorum.Content = model.Yorum.Content;
+            if (!string.IsNullOrEmpty(model.Yorum.Content))
+            {
+                yeniYorum.Content = model.Yorum.Content;
+            }
+            else
+            {
+                mdvm.Makale = repoM.GetById(model.Makale.Id);
+                mdvm.Yorum = new Comment();
+                mdvm.Yorumlar = mdvm.Makale.Comments.ToList();
+                return View(mdvm);
+            }
             yeniYorum.UserId = HttpContext.User.Identity.GetUserId();
             if (repoC.Add(yeniYorum))
             {
                 return Redirect("/Makale/MakaleDetay/" + model.Makale.Id);
             }
-
-            return View();
+            mdvm.Makale = repoM.GetById(model.Makale.Id);
+            mdvm.Yorum = new Comment();
+            mdvm.Yorumlar = mdvm.Makale.Comments.ToList();
+            return View(mdvm);
         }
         public ActionResult Kategoriler()
         {
@@ -92,6 +105,7 @@ namespace Blog.PL.Controllers
             if (repoCat.GetAll(c => c.Name == model.Name).FirstOrDefault() != null)
             {
                 yeniKategori = repoCat.GetAll(c => c.Name == model.Name).FirstOrDefault();
+                
                 if (yeniKategori.IsDeleted == false)
                 {
                     ModelState.AddModelError("", "Bu kategori sistemde kayıtlı!");
@@ -128,6 +142,11 @@ namespace Blog.PL.Controllers
             }
             yeniKategori.Name = model.Name.Substring(0, 1).ToUpper() + model.Name.Substring(1);
             yeniKategori.IsDeleted = false;
+            if (yeniKategori.Name.Length > 50)
+            {
+                ModelState.AddModelError("", "Kategori ismi 50 karakterden az olmalı!");
+                return View(model);
+            }
             if (repoCat.Add(yeniKategori))
             {
                 return Redirect("/Makale/Kategoriler/");
@@ -181,16 +200,16 @@ namespace Blog.PL.Controllers
                 return Json("NotDeleted", JsonRequestBehavior.AllowGet);
             }
             repoCat.Delete(kategori);
-            return Json("Deleted",JsonRequestBehavior.AllowGet);
+            return Json("Deleted", JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult CommentAnswer(int id,string comment)
+        public JsonResult CommentAnswer(int id, string comment)
         {
             Comment yorum = repoC.GetById(id);
             CommentAnswer newAnswer = new CommentAnswer();
             newAnswer.CommentId = yorum.Id;
-            newAnswer.UserId= HttpContext.User.Identity.GetUserId();
+            newAnswer.UserId = HttpContext.User.Identity.GetUserId();
             newAnswer.Content = comment;
             if (repoComAns.Add(newAnswer))
             {

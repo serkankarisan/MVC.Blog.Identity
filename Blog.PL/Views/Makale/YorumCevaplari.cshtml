@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Blog.Entity.Entity.CommentAnswer>
 
 @{
-    ViewBag.Title = "YorumCevaplari";
+    ViewBag.Title = "Yorum Cevapları";
     Layout = "~/Views/Shared/_LayoutBlog.cshtml";
 }
 
@@ -21,13 +21,13 @@
         <th></th>
     </tr>
     <tr>
-        <td>
+        <td class="wordwrap">
             <label>@Model.ToList().FirstOrDefault().Comment.User.UserName</label>
         </td>
-        <td>
+        <td class="wordwrap">
             <label>@Model.ToList().FirstOrDefault().Comment.Content</label>
         </td>
-        <td>
+        <td class="wordwrap">
             <label>@Model.ToList().FirstOrDefault().Comment.CreatedDate</label>
         </td>
     </tr>
@@ -52,13 +52,13 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <td class="wordwrap">
                 @Html.DisplayFor(modelItem => item.User.UserName)
             </td>
-            <td>
+            <td class="wordwrap">
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
-            <td>
+            <td class="wordwrap">
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
         </tr>

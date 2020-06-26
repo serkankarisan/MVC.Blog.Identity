@@ -1,6 +1,12 @@
 ﻿@model IEnumerable<Blog.Entity.Entity.Article>
-@{
-    ViewBag.Title = "MakalelerByKategori";
+@{if (Model.FirstOrDefault()!=null)
+    {
+        ViewBag.Title = @Model.FirstOrDefault().Category.Name + " Makaleleri";
+    }
+    else
+    {
+        ViewBag.Title = "Bu kategoride makale bulunamadı!";
+    }
 }
 
 @Html.Partial("SonEklenenMakaleler", Model)

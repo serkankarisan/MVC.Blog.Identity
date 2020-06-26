@@ -6,7 +6,7 @@
 <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <title>MVC Blog Projesi</title>
+    <title>@ViewBag.Title</title>
     <meta name="description" content="iDea a Bootstrap-based, Responsive HTML5 Template">
     <meta name="author" content="htmlcoder.me">
 
@@ -247,16 +247,6 @@
                                                     <ul class="dropdown-menu">
                                                         <li><a href="/Makale/Kategoriler">Kategori Listesi</a></li>
                                                         <li><a href="/Makale/KategoriEkle">Kategori Ekle</a></li>
-                                                        @*<li><a href="blog-no-sidebar.html">Yazar Listesi</a></li>*@
-
-                                                    </ul>
-                                                </li>
-                                                <li class="dropdown">
-                                                    <a href="" class="dropdown-toggle" data-toggle="dropdown">İstatistikler</a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="blog-right-sidebar.html">Popüler Etiketler</a></li>
-                                                        <li><a href="blog-left-sidebar.html">Yorum Sayıları</a></li>
-                                                        @*<li><a href="blog-no-sidebar.html">Yazar Listesi</a></li>*@
 
                                                     </ul>
                                                 </li>
@@ -301,24 +291,11 @@
                                                 <ul class="nav nav-pills nav-stacked">
                                                     @foreach (Blog.Entity.Entity.Category item in ViewBag.Kategoriler)
                                                     {
-                                                        <li><a class="fa-border" style="border-color:cadetblue;" href="/Home/MakalelerByKategori/@item.Id">@item.Name</a></li>
+                                                        <li><a class="fa-border wordwrap" style="border-color:cadetblue;" href="/Home/MakalelerByKategori/@item.Id">@item.Name</a></li>
                                                     }
                                                 </ul>
                                             </nav>
-                                        </div>
-                                        <div class="block clearfix">
-                                            <h3 class="title">Etiketler</h3>
-                                            <div class="separator"></div>
-                                            <div class="tags-cloud">
-                                                @foreach (Blog.Entity.Entity.Tag item in ViewBag.Etiketler)
-                                                {
-                                                    <div class="tag">
-                                                        @Html.ActionLink(item.Content, "MakalelerByEtiket", "Home", new { etiketId = item.Id }, null)
-                                                        @*<a href="#">@item.Content</a>*@
-                                                    </div>
-                                                }
-                                            </div>
-                                        </div>
+                                        </div>                                        
                                     </div>
                                 </aside>
                                 <!-- sidebar end -->

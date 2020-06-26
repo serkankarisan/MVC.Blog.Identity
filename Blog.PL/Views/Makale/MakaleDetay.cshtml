@@ -1,6 +1,6 @@
 ﻿@model Blog.Entity.ViewModel.MakaleDetayViewModel
 @{
-    ViewBag.Title = "MakaleDetay";
+    ViewBag.Title = "Makale Detay";
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -12,7 +12,7 @@
         <div class="main col-md-offset-1 col-md-9">
             <!-- page-title start -->
             <!-- ================ -->
-            <h1 class="page-title">@Model.Makale.Title</h1>
+            <h1 class="page-title wordwrap">@Model.Makale.Title</h1>
             <!-- page-title end -->
             <!-- blogpost start -->
             <article class="clearfix blogpost full">
@@ -41,7 +41,7 @@
                                 @*<a href="images/blog-3.jpg" class="popup-img overlay" title="image title"><i class="fa fa-search-plus"></i></a>*@
                             </div>
                         </div>
-                        <p>
+                        <p class="wordwrap">
                             @Html.Raw(Model.Makale.Content)
                         </p>
                     </div>
@@ -72,9 +72,9 @@
                             </div>
                             <div class="comment-content">
                                 <h3>Yorum</h3>
-                                <div class="comment-meta">By <a href="#">@(yorum.User.Name + " " + yorum.User.Surname)</a> | Today, 12:31</div>
+                                <div class="comment-meta">By <a class="wordwrap" href="#">@(yorum.User.Name + " " + yorum.User.Surname)</a> | Today, 12:31</div>
                                 <div class="comment-body clearfix">
-                                    <p>@yorum.Content</p>
+                                    <p class="wordwrap">@yorum.Content</p>
                                     <button type="button" class="btn btn-gray more pull-right ComAnswIdSelect" data-toggle="modal" data-target="#CommentAnswerModal" data-comid="@yorum.Id">
                                         Cevapla
                                     </button>

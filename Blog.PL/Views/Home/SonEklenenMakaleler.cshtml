@@ -38,11 +38,11 @@ else
                         </header>
                         @if (item.Summary.Length < 100)
                         {
-                            <p>@Html.Raw(item.Summary)</p>
+                            <p class="wordwrap">@Html.Raw(item.Summary)</p>
                         }
                         else
                         {
-                            <p>@Html.Raw(item.Summary.Substring(0, 100))...</p>
+                            <p class="wordwrap">@Html.Raw(item.Summary.Substring(0, 100))...</p>
                         }
                     </div>
                 </div>
